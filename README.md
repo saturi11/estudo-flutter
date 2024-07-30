@@ -1,20 +1,2 @@
-<<<<<<< HEAD
-# app
-=======
-# trilhaapp
->>>>>>> e89dbe0 (creatin back4app model)
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#TrilhaApp
+TrilhaApp é um projeto de estudo desenvolvido em Flutter. O objetivo deste projeto é fornecer uma base para o desenvolvimento de aplicativos móveis utilizando Flutter, Hive para armazenamento local e SQLite para banco de dados relacional.
