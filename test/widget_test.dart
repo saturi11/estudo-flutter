@@ -7,8 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+<<<<<<< HEAD
 
 import 'package:app/main.dart';
+=======
+import 'package:trilhaapp/main.dart';
+>>>>>>> e89dbe0 (creatin back4app model)
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

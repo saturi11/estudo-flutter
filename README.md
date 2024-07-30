@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # app
+=======
+# trilhaapp
+>>>>>>> e89dbe0 (creatin back4app model)
 
 A new Flutter project.
 

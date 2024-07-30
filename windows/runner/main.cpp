@@ -27,7 +27,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
+<<<<<<< HEAD
   if (!window.Create(L"app", origin, size)) {
+=======
+  if (!window.Create(L"trilhaapp", origin, size)) {
+>>>>>>> e89dbe0 (creatin back4app model)
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

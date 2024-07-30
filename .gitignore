@@ -9,6 +9,10 @@
 .history
 .svn/
 migrate_working_dir/
+<<<<<<< HEAD
+=======
+.env
+>>>>>>> e89dbe0 (creatin back4app model)
 
 # IntelliJ related
 *.iml
@@ -29,6 +33,10 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
+<<<<<<< HEAD
+=======
+
+>>>>>>> e89dbe0 (creatin back4app model)
 /build/
 
 # Symbolication related

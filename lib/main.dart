@@ -1,145 +1,40 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:trilhaapp/model/dados_cadastrais.dart';
+import 'package:trilhaapp/model/tarefa_hive_model.dart';
+import 'package:trilhaapp/pages/my_app.dart';
+import 'package:trilhaapp/repositories/sqlite/database.dart' as Database;
 
-void main() {
-  runApp(const MyApp());
-}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  print("Diretório atual: ${Directory.current.path}");
+  final envFilePath = ".env";
+  final file = File(envFilePath);
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool isDarkTheme = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: isDarkTheme ? ThemeData.dark() : ThemeData.light(),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''), // English
-        Locale('pt', ''), // Portuguese
-      ],
-      home: MyHomePage(
-        title: 'Flutter Demo Home Page',
-        toggleTheme: toggleTheme,
-        isDarkTheme: isDarkTheme,
-      ),
-    );
+  if (await file.exists()) {
+    try {
+      await dotenv.load(fileName: envFilePath);
+      print("Arquivo .env carregado com sucesso");
+    } catch (e, stacktrace) {
+      print("Erro ao carregar o arquivo .env: $e");
+      print("Stacktrace: $stacktrace");
+    }
+  } else {
+    print("Arquivo .env não encontrado no caminho $envFilePath");
   }
 
-  void toggleTheme() {
-    setState(() {
-      isDarkTheme = !isDarkTheme;
-    });
-  }
-}
+  var documentDirectory =
+      await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(documentDirectory.path);
+  Hive.registerAdapter(DadosCadastraisAdapter());
+  Hive.registerAdapter(TarefaHiveModelAdapter());
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-    required this.title,
-    required this.toggleTheme,
-    required this.isDarkTheme,
-  });
+  await Database.DatabaseHelper().initBanco();
+  await Database.DatabaseHelper().addConcluidoColumn();
 
-  final String title;
-  final VoidCallback toggleTheme;
-  final bool isDarkTheme;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadCounter();
-  }
-
-  Future<void> _loadCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _counter = prefs.getInt('counter') ?? 0;
-    });
-  }
-
-  Future<void> _saveCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setInt('counter', _counter);
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-    _saveCounter();
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-    _saveCounter();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            icon: Icon(widget.isDarkTheme ? Icons.light_mode : Icons.dark_mode),
-            onPressed: widget.toggleTheme,
-          ),
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Você apertou o trem tantas vezes:',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 10),
-          FloatingActionButton(
-            onPressed: _decrementCounter,
-            tooltip: 'Decrement',
-            child: const Icon(Icons.remove),
-          ),
-        ],
-      ),
-    );
-  }
+  runApp(const MyWidget());
 }

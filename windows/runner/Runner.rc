@@ -89,6 +89,7 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
+<<<<<<< HEAD
             VALUE "CompanyName", "com.gabrielsaturi.app" "\0"
             VALUE "FileDescription", "app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
@@ -96,6 +97,15 @@ BEGIN
             VALUE "LegalCopyright", "Copyright (C) 2024 com.gabrielsaturi.app. All rights reserved." "\0"
             VALUE "OriginalFilename", "app.exe" "\0"
             VALUE "ProductName", "app" "\0"
+=======
+            VALUE "CompanyName", "com.gabrielsaturi.trilhaapp" "\0"
+            VALUE "FileDescription", "trilhaapp" "\0"
+            VALUE "FileVersion", VERSION_AS_STRING "\0"
+            VALUE "InternalName", "trilhaapp" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.gabrielsaturi.trilhaapp. All rights reserved." "\0"
+            VALUE "OriginalFilename", "trilhaapp.exe" "\0"
+            VALUE "ProductName", "trilhaapp" "\0"
+>>>>>>> e89dbe0 (creatin back4app model)
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
